@@ -4043,6 +4043,7 @@ void main(){
     vec3 ray = p.x*rightdir + p.y*updir + depth*cdir;
     ray = normalize(ray);//長さを１にする
 
+
     vec3 pt = rayMarching(camera, ray);
 
     if(abs(sdf(pt))<0.01){
