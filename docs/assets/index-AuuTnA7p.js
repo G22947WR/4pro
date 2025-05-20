@@ -4005,7 +4005,7 @@ float sdfSphere(vec3 pt, vec3 c, float r){
 }
 
 float sdf(vec3 pt){
-    returnsdfSphere(pt, vec3(0.0, 0.0, 0.0), radius);
+    return sdfSphere(pt, vec3(0.0, 0.0, 0.0), radius);
 }
 
 vec3 rayStep(vec3 pt, vec3 ray){
@@ -4022,19 +4022,19 @@ vec3 rayMarching(vec3 pt, vec3 ray){
     return vec3(10000.0, 10000.0, 10000.0);
 }
 
-vec3 sdfNormal(vec3 pt{
+vec3 sdfNormal(vec3 pt){
     float eps = 0.005;
-    float fx = (sdf(pt+vec3(eps,0,0))-sbf(pt))/eps;
-    float fy = (sdf(pt+vec3(0,eps,0))-sbf(pt))/eps;
-    float fz = (sdf(pt+vec3(0,0,eps))-sbf(pt))/eps;
+    float fx = (sdf(pt+vec3(eps,0,0))-sdf(pt))/eps;
+    float fy = (sdf(pt+vec3(0,eps,0))-sdf(pt))/eps;
+    float fz = (sdf(pt+vec3(0,0,eps))-sdf(pt))/eps;
 
     return normalize(vec3(fx,fy,fz));
-})
+}
 void main(){
     vec2 p = gl_FragCoord.xy/u_resolution.x;
     p = 2.0*p - 1.0;
 
-    vec3 loght = vec3(0.0, 100.0, 100.0);
+    vec3 light = vec3(0.0, 100.0, 100.0);
     vec3 camera = vec3(0.0, 0.0, 10.0);
     vec3 cdir = vec3(0.0, 0.0, -1.0);
     vec3 updir = vec3(0.0, 1.0, 0.0);
