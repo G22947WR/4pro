@@ -6,7 +6,7 @@ import { useControls } from 'leva'
 //import './styles.css'
 import vertexShader from "./vshader.vert?raw";
 //import fragmentShader from "./sankaku.frag?raw";
-import fragmentShader from "./may13.frag?raw";
+import fragmentShader from "./noise.frag?raw";
 
 
 declare global
@@ -18,9 +18,9 @@ declare global
 
 
 function App() {
-  const { radius, wallZ, theta } = useControls({radius :{value:1.0, min: 0.5, max: 2.0, step:0.05},
-					wallZ :{value:0.0, min: -2.0, max: 2.0, step:0.05},
-					theta :{value:0.0, min: -3.14159*0.1, max: 2.0, step:0.001}
+  const { radius, WallZ, theta} = useControls({radius :{value:1.0, min: 0.5, max: 2.0, step:0.05},
+					WallZ :{value:0.0, min: -2.0, max: 2.0, step:0.01}, 
+					theta :{value:0.0, min: 0.0, max:10.0, step: 0.01}
 				       });
   return (
     <>
@@ -40,7 +40,8 @@ function App() {
 		    <mesh>
 			<planeGeometry args={[2,2]}/>
 			{/* @ts-ignore TS2339: Property 'diffMaterial' does not exist on type 'JSX.IntrinsicElements'.*/}
-			<diffMaterial key={DiffMaterial.key} glslVersion={THREE.GLSL3} radius={radius} wallZ={wallZ} theta={theta}/>
+			<diffMaterial key={DiffMaterial.key} glslVersion={THREE.GLSL3} radius={radius} WallZ={WallZ} theta
+			={theta}/>
 		    </mesh>
 		</Hud>
 	    </Canvas>
@@ -52,7 +53,7 @@ function App() {
 const DiffMaterial = shaderMaterial(
   {u_resolution: new THREE.Vector2(window.innerWidth, window.innerHeight),
    radius: 1.0,
-   wallZ: 0.0,
+   WallZ: 0.0,
    theta: 0.0
   },
   vertexShader,
